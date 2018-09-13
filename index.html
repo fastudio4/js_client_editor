@@ -34,7 +34,7 @@
                                 <span id="name-file"></span>
                             </div>
 
-                            <p><b>Редактировать</b></p>
+                            <p></p>
                             <div>
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Приблизить"><span class="glyphicon glyphicon-zoom-in editor" aria-hidden="true"></span></button>
@@ -74,11 +74,14 @@
         </div>
     </div>
     <script>
-
-        var canvas = new fabric.Canvas('base-layout');
+        var image;
+        var canvas = new fabric.Canvas('base-layout', {
+            preserveObjectStacking: true // disable bouncing layers on canvas
+        });
             canvas.setHeight(500);
             canvas.setWidth(500);
-        var image;
+
+            document.getElementById('text-input').value = '';
             document.getElementById('load-image').onchange = function handleImage(e) {
                 var nameImage = document.getElementById('load-image').files[0].name;
                 if (securityFormat(nameImage.toLowerCase()) == true) {
@@ -93,12 +96,26 @@
                         imgObj.src = event.target.result;
                         imgObj.onload = function () {
                             image = new fabric.Image(imgObj);
+                            image.set({
+                                hasRotatingPoint: false,
+                                hasBorders: false,
+                                zIndex: 999
+                            });
                             canvas.add(image);
                         };
                     };
                     reader.readAsDataURL(e.target.files[0]);
                 }
             };
+
+
+//        canvas.on('object:selected', function(options) {
+//            if (options.target.type == 'image') {
+//                console.log(image);
+//                image.zIndex = 999;
+//                console.log('Selected')
+//            }
+//        });
 
         function securityFormat(name) {
             var acceptFormat = 'jpg jpeg png';
@@ -128,12 +145,15 @@
 
         function addText() {
             var inputText = document.getElementById('text-input').value;
-            var text = new fabric.Text(inputText);
+            if (document.getElementById('text-input').value != '') {
+                document.getElementById('text-input').value = '';
+                var text = new fabric.Text(inputText);
                 text.left = canvas.width / 2 - text.width / 2;
                 text.top = canvas.height / 2 - text.height / 2;
-//            console.log(text);
-            canvas.add(text);
+                canvas.add(text);
+            }
         }
+
     </script>
 
 </body>
