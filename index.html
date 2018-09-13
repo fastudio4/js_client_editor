@@ -11,65 +11,46 @@
     <title>Print to coffee</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
-                <canvas id="base-layout" style="border-radius: 50%; border:1px solid #6f4e37;"></canvas>
+            <div class="col-md-4">
             </div>
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><strong>Добавить изображение</strong></h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="btn btn-primary btn-file" id="add-image">
-                                Добавить <input id="load-image" type="file" name="file">
-                            </label>
-                                <strong><span class="text-danger" id="error-loading-file"></span></strong>
-                        </div>
-                        <div id="remote-image" style="display: none">
-                            <div>
-                                <button id="delete-image" class="btn btn-danger" type="button" onclick="removeImage()">Удалить</button>
-                                <span id="name-file"></span>
-                            </div>
-
-                            <p></p>
-                            <div>
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Приблизить"><span class="glyphicon glyphicon-zoom-in editor" aria-hidden="true"></span></button>
-                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Отдалить"><span class="glyphicon glyphicon-zoom-out editor" aria-hidden="true"></span></button>
-                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Повернуть"><span class="glyphicon glyphicon-repeat editor" aria-hidden="true"></span></button>
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="glyphicon glyphicon-tint editor"></span> Градиент
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">Dropdown link</a></li>
-                                            <li><a href="#">Dropdown link</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><strong>Добавить теск</strong></h4>
-                    </div>
-                    <div class="panel-body">
+            <div class="col-md-4">
+                <div>
+                    <div class="form-group btn-group" role="group" id="image-editor">
+                        <label class="btn btn-success btn-file" id="add-image" data-toggle="tooltip" data-placement="top" title="Добавить">
+                            <span class="glyphicon glyphicon-plus editor" aria-hidden="true"></span><input id="load-image" type="file" name="file">
+                        </label>
+                        <button type="button" class="btn btn-default disabled" data-toggle="tooltip" data-placement="top" title="Удалить"><span class="glyphicon glyphicon-trash editor" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default disabled" data-toggle="tooltip" data-placement="top" title="Увеличить"><span class="glyphicon glyphicon-zoom-in editor" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default disabled" data-toggle="tooltip" data-placement="top" title="Уменьшить"><span class="glyphicon glyphicon-zoom-out editor" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default disabled" data-toggle="tooltip" data-placement="top" title="Повернуть"><span class="glyphicon glyphicon-repeat editor" aria-hidden="true"></span></button>
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Приблизить"><span class="glyphicon glyphicon-zoom-in editor" aria-hidden="true"></span></button>
+                            <button type="button" class="btn btn-default dropdown-toggle disabled" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-tint editor"></span> Фильтры
+                                    <span class="caret"></span>
+                            </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Dropdown link</a></li>
+                                    <li><a href="#">Dropdown link</a></li>
+                                </ul>
                         </div>
-                        <p></p>
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3" id="text-input"></textarea>
+                    </div>
+                    <p id="error-loading-file" class="text-danger" role="alert"></p>
+                </div>
+                <canvas id="base-layout" style="border-radius: 50%; border:1px solid #6f4e37;"></canvas>
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Приблизить"><span class="glyphicon glyphicon-zoom-in editor" aria-hidden="true"></span></button>
+                    </div>
+                    <div class="form-group">
+                            <textarea class="form-control" rows="2" id="text-input"></textarea>
                         </div>
                         <button id="add-text" class="btn btn-primary" type="button" onclick="addText()">Добавить</button>
                     </div>
-                </div>
+            </div>
+
+            <div class="col-md-4">
             </div>
         </div>
     </div>
@@ -78,18 +59,13 @@
         var canvas = new fabric.Canvas('base-layout', {
             preserveObjectStacking: true // disable bouncing layers on canvas
         });
-            canvas.setHeight(500);
-            canvas.setWidth(500);
-
-            document.getElementById('text-input').value = '';
+            canvas.setHeight(400);
+            canvas.setWidth(400);
             document.getElementById('load-image').onchange = function handleImage(e) {
+                console.log();
                 var nameImage = document.getElementById('load-image').files[0].name;
                 if (securityFormat(nameImage.toLowerCase()) == true) {
                     document.getElementById('error-loading-file').innerHTML = '';
-                    document.getElementById('add-image').style = '';
-                    document.getElementById('add-image').style.display = 'none';
-                    document.getElementById('remote-image').style.display = '';
-                    document.getElementById('name-file').innerHTML = nameImage;
                     var reader = new FileReader();
                     reader.onload = function (event) {
                         var imgObj = new Image();
@@ -109,13 +85,13 @@
             };
 
 
-//        canvas.on('object:selected', function(options) {
-//            if (options.target.type == 'image') {
-//                console.log(image);
-//                image.zIndex = 999;
-//                console.log('Selected')
-//            }
-//        });
+        canvas.on('object:selected', function(options) {
+            if (options.target.type == 'image') {
+                console.log(image);
+                image.zIndex = 999;
+                console.log('Selected')
+            }
+        });
 
         function securityFormat(name) {
             var acceptFormat = 'jpg jpeg png';
