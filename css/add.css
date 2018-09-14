@@ -26,5 +26,8 @@ body {
 #error-loading-file {
     font-weight: bold;
     text-align: center;
+}
 
+#filter-image {
+    filter: brightness(1) contrast(1) saturate(1);
 }
