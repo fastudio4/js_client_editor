@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/add.css">
+    <link rel="stylesheet" href="css/filters.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/fabric.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -33,37 +34,51 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    <img src="" class="img-thumbnail" id="filter-image">
+                                    <img src="" class="" id="filter-image">
                                     <p></p>
                                     <form class="form-horizontal">
                                         <div class="form-group">
                                             <label for="brightness" class="col-sm-2 control-label">Яркость:</label>
                                             <div class="col-sm-10">
-                                                <input type="range" class="form-control" id="brightness" min="0.2" max="5" step="0.1" value="1">
+                                                <input type="range" class="form-control" id="brightness" min="0.2" max="5" step="0.1" value="1.0">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="contrast" class="col-sm-2 control-label">Контраст:</label>
                                             <div class="col-sm-10">
-                                                <input type="range" class="form-control" id="contrast" min="0.2" max="7" step="0.1" value="1">
+                                                <input type="range" class="form-control" id="contrast" min="0.2" max="7" step="0.1" value="1.0">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="saturate" class="col-sm-2 control-label">Цветность:</label>
                                             <div class="col-sm-10">
-                                                <input type="range" class="form-control" id="saturate" min="0" max="10" step="0.1" value="1">
+                                                <input type="range" class="form-control" id="saturate" min="0" max="10" step="0.1" value="1.0">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="filters" class="col-sm-2 control-label">Фильтры:</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control" id="filters">
+                                                <select class="form-control" id="filters" onchange="activeFilter()">
                                                     <option value="" selected disabled hidden>Применить фильтр</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                    <option value="f1977">1977</option>
+                                                    <option value="aden">Aden</option>
+                                                    <option value="amaro">Amaro</option>
+                                                    <option value="brannan">Brannan</option>
+                                                    <option value="brooklyn">Brooklyn</option>
+                                                    <option value="clarendon">Clarendon</option>
+                                                    <option value="earlybird">Earlybird</option>
+                                                    <option value="gingham">Gingham</option>
+                                                    <option value="hudson">Hudson</option>
+                                                    <option value="inkwell">Inkwell</option>
+                                                    <option value="loft">Loft</option>
+                                                    <option value="maven">Maven</option>
+                                                    <option value="perpetua">Perpetua</option>
+                                                    <option value="reyes">Reyes</option>
+                                                    <option value="stinson">Stinson</option>
+                                                    <option value="toaster">Toaster</option>
+                                                    <option value="walden">Walden</option>
+                                                    <option value="valencia">Valencia</option>
+                                                    <option value="xpro2">Xpro2</option>
                                                 </select>
                                             </div>
                                         </div>

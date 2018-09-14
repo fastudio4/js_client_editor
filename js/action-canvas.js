@@ -2,6 +2,7 @@ var image;
 var imgObj = new Image();
 var scaleImage = 1.0;
 var imageAngle = 0;
+var filterImage;
 var canvas = new fabric.Canvas('base-layout', {
     preserveObjectStacking: true // disable bouncing layers on canvas
 });
@@ -66,7 +67,7 @@ function removeImage() {
 
 function pushImage() {
     if (scaleImage > 0 && scaleImage < 5) {
-        scaleImage = scaleImage + 0.1;
+        scaleImage += 0.1;
         image.scale(scaleImage, scaleImage);
         canvas.centerObject(image);
         image.setCoords();
@@ -77,12 +78,11 @@ function pushImage() {
 
 function pullImage() {
     if (scaleImage > 0.3 ) {
-        scaleImage = scaleImage - 0.1;
+        scaleImage -= 0.1;
         image.scale(scaleImage, scaleImage);
         canvas.centerObject(image);
         image.setCoords();
         canvas.renderAll();
-
     }
 }
 
@@ -97,8 +97,9 @@ function rotateImage() {
 }
 
 function maskImage() {
-    var filterImage = document.getElementById('filter-image');
+    filterImage = document.getElementById('filter-image');
     filterImage.src = imgObj.src;
+    filterImage.className = 'img-thumbnail'
 }
 
 function securityFormat(name) {
@@ -131,4 +132,6 @@ function addText() {
     }
 }
 
-
+function activeFilter() {
+    filterImage.className = 'img-thumbnail' + ' ' + document.getElementById('filters').value;
+}

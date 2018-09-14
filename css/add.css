@@ -28,6 +28,3 @@ body {
     text-align: center;
 }
 
-#filter-image {
-    filter: brightness(1) contrast(1) saturate(1);
-}
