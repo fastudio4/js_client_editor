@@ -22,11 +22,9 @@ body {
     display: block;
 }
 
-.editor {
-    font-size: 18px;
-}
 
 #error-loading-file {
     font-weight: bold;
     text-align: center;
+
 }
